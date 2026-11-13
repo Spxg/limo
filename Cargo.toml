@@ -1,0 +1,61 @@
+[package]
+name = "limo"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = { version = "1.0.100", default-features = false, features = ["std"] }
+axum = { version = "0.8.6", default-features = false, features = ["http1", "tokio"] }
+clap = { version = "4.5.39", default-features = false, features = ["std", "derive", "help", "usage", "error-context"] }
+moli-core = { git = "https://github.com/lexmount/moli.git", rev = "fa87b9515bd6f98aabdca48c64c6f41bc3d093e4", default-features = false }
+tokio = { version = "1.53.1", default-features = false, features = ["rt", "net", "time"] }
+tower-http = { version = "0.6.11", default-features = false, features = ["fs"] }
+url = { version = "2.5.8", default-features = false, features = ["std"] }
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+strip = false
+# Production and release-regression binaries favor a compact code working set
+# over parallel code generation.
+codegen-units = 1
+
+# moli requires these upstream forks; Cargo patches do not propagate from dependencies.
+[patch.crates-io]
+# Share glyph preparation between CPU rendering and PDF ink measurement.
+glifo = { git = "https://github.com/ldm0/vello", rev = "1f3376b102ca9a0950221f3df09316c4ef1299ba" }
+vello_common = { git = "https://github.com/ldm0/vello", rev = "1f3376b102ca9a0950221f3df09316c4ef1299ba" }
+# Share AWS-LC 0.46 with aws-lc-rs until upstream openssl-sys updates its backend.
+openssl-sys = { git = "https://github.com/lexmount/rust-openssl", rev = "4497b245b09660f838dd00750616929b4cfe52ba" }
+parley = { git = "https://github.com/lexmount/parley", rev = "a18cfc3ba6638d44ff0d0c9ce7b0b3396b42e8cf" }
+fontique = { git = "https://github.com/lexmount/parley", rev = "a18cfc3ba6638d44ff0d0c9ce7b0b3396b42e8cf" }
+# Share fontations between shaping, raster rendering and PDF font subsetting.
+subsetter = { git = "https://github.com/lexmount/subsetter", rev = "8d3815245835af309559c3b4a872d6a0a54913a9" }
+url = { git = "https://github.com/lexmount/rust-url", rev = "ca9fcad2b99f20c30c28a618ad78410f6fd31161" }
+idna = { git = "https://github.com/lexmount/rust-url", rev = "ca9fcad2b99f20c30c28a618ad78410f6fd31161" }
+xml5ever = { git = "https://github.com/lexmount/html5ever", rev = "4574311c63e79bba7d4ddb98cb0562d8dad499ee" }
+curl = { git = "https://github.com/lexmount/curl-rust", rev = "0392e12475d8d1160d4cae07c172cac02797cc25" }
+curl-sys = { git = "https://github.com/lexmount/curl-rust", rev = "0392e12475d8d1160d4cae07c172cac02797cc25" }
+cookie = { git = "https://github.com/ldm0/cookie-rs", branch = "priority" }
+v8 = { git = "https://github.com/lexmount/moli.git", rev = "fa87b9515bd6f98aabdca48c64c6f41bc3d093e4" }
+deno_v8 = { git = "https://github.com/lexmount/moli.git", rev = "fa87b9515bd6f98aabdca48c64c6f41bc3d093e4" }
+selectors = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
+servo_arc = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
+stylo = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
+stylo_atoms = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
+stylo_dom = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
+stylo_static_prefs = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
+stylo_traits = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
+svgtypes = { git = "https://github.com/lexmount/svgtypes", branch = "moli" }
+# Resolve SVG relative font weights using the CSS inherited-weight ranges.
+usvg = { git = "https://github.com/lexmount/resvg", rev = "614aaf4d21ca03a4773f1e4d07c6a404407589a2" }
+taffy = { git = "https://github.com/ldm0/taffy", rev = "0a337871fa44db7d48571b06668f92737eefa8c2" }
+
+#[patch."https://github.com/lexmount/moli.git"]
+#moli-core = { path = "../moli/moli-core" }
+
+[patch."https://github.com/DioxusLabs/taffy"]
+taffy = { git = "https://github.com/ldm0/taffy", rev = "0a337871fa44db7d48571b06668f92737eefa8c2" }
+
