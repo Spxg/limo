@@ -8,6 +8,7 @@ use axum::{
     middleware::{self, Next},
     response::{Html, Response},
     routing::get,
+    serve::ListenerExt,
 };
 use tokio::{net::TcpListener, task::JoinHandle};
 use tower_http::services::{ServeDir, ServeFile};
@@ -105,6 +106,10 @@ impl LocalServer {
             .context("failed to start local server")?;
         let address = listener.local_addr()?;
         let base_url = format!("http://{address}");
+        let listener = listener.tap_io(|stream| {
+            // Send small script responses without waiting for TCP acknowledgements.
+            let _ = stream.set_nodelay(true);
+        });
         let task = tokio::spawn(async move { axum::serve(listener, app).await });
 
         Ok(Self { base_url, task })
