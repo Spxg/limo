@@ -8,6 +8,9 @@ anyhow = { version = "1.0.100", default-features = false, features = ["std"] }
 axum = { version = "0.8.6", default-features = false, features = ["http1", "tokio"] }
 clap = { version = "4.5.39", default-features = false, features = ["std", "derive", "help", "usage", "error-context"] }
 moli-core = { git = "https://github.com/lexmount/moli.git", rev = "fa87b9515bd6f98aabdca48c64c6f41bc3d093e4", default-features = false }
+oxc_allocator = { version = "0.127.0", default-features = false }
+oxc_parser = { version = "0.127.0", default-features = false }
+oxc_span = { version = "0.127.0", default-features = false }
 tokio = { version = "1.53.1", default-features = false, features = ["rt", "net", "time"] }
 tower-http = { version = "0.6.11", default-features = false, features = ["fs"] }
 url = { version = "2.5.8", default-features = false, features = ["std"] }

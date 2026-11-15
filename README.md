@@ -8,19 +8,20 @@ Install from source:
 cargo install --locked --path .
 ```
 
-Run a JavaScript file, evaluate code, or read code from standard input:
+Run a JavaScript file, code snippet, or code from standard input:
 
 ```sh
 limo [OPTIONS] [FILE]
 ```
 
-`.js` files run as classic scripts, and `.mjs` files run as ES modules.
+By default, `.mjs` files run as ES modules, `.cjs` files are rejected because CommonJS is unsupported, and other inputs use automatic detection.
 
 ## Options
 
 | Option | Description | Default |
 | --- | --- | --- |
-| `-e, --eval <CODE>` | Evaluate JavaScript code | |
+| `-e, --eval <CODE>` | Run JavaScript code | |
+| `--input-type <TYPE>` | `script` or `module`, for files, `--eval`, and standard input | File extension or automatic detection |
 | `--port <PORT>` | Local server port | Random port |
 | `--profile-dir <PATH>` | Directory for persistent browser data | Temporary storage |
 | `--timeout-ms <MS>` | Execution timeout in milliseconds | `600000` |

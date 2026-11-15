@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use anyhow::{Context, Result, ensure};
+use anyhow::{Context, Result};
 use axum::{
     Router,
     extract::Request,
@@ -10,15 +10,12 @@ use axum::{
     routing::get,
 };
 use tokio::{net::TcpListener, task::JoinHandle};
-use tower_http::services::ServeDir;
+use tower_http::services::{ServeDir, ServeFile};
 use url::Url;
 
-pub fn script_router(path: &Path) -> Result<Router> {
-    ensure!(
-        path.is_file(),
-        "JavaScript entry is not a file: {}",
-        path.display()
-    );
+use crate::InputType;
+
+pub fn script_router(path: &Path, input_type: InputType) -> Result<Router> {
     let root = path
         .parent()
         .context("JavaScript file has no parent directory")?;
@@ -32,22 +29,11 @@ pub fn script_router(path: &Path) -> Result<Router> {
         .path_segments_mut()
         .map_err(|()| anyhow::anyhow!("failed to create JavaScript entry URL"))?
         .push(name);
-    let entry_url = entry_url.path().replace('&', "&amp;");
-
-    let script_attributes =
-        if path.extension().and_then(|extension| extension.to_str()) == Some("mjs") {
-            "type=\"module\""
-        } else {
-            "defer"
-        };
-
-    let html = format!(
-        "<!doctype html><html><head>\
-         <script {script_attributes} src=\"{entry_url}\"></script>\
-         </head><body></body></html>"
-    );
+    let entry_path = entry_url.path();
+    let html = entry_html(entry_path, input_type);
 
     Ok(Router::new()
+        .without_v07_checks()
         .route(
             "/",
             get(move || {
@@ -55,18 +41,47 @@ pub fn script_router(path: &Path) -> Result<Router> {
                 async move { Html(html) }
             }),
         )
+        .route_service(
+            entry_path,
+            ServeFile::new_with_mime(path, &"text/javascript".parse()?),
+        )
         .fallback_service(ServeDir::new(root))
         .layer(middleware::from_fn(disable_cache)))
 }
 
-pub fn blank_router() -> Router {
+pub fn source_router(source: String, input_type: InputType) -> Router {
+    let entry_path = "/__limo_input__.js";
+    let html = entry_html(entry_path, input_type);
     Router::new()
         .route(
             "/",
-            get(|| async { Html("<!doctype html><html><head></head><body></body></html>") }),
+            get(move || {
+                let html = html.clone();
+                async move { Html(html) }
+            }),
+        )
+        .route(
+            entry_path,
+            get(move || {
+                let source = source.clone();
+                async move { ([(header::CONTENT_TYPE, "text/javascript")], source) }
+            }),
         )
         .fallback_service(ServeDir::new("."))
         .layer(middleware::from_fn(disable_cache))
+}
+
+fn entry_html(entry_path: &str, input_type: InputType) -> String {
+    let entry_url = entry_path.replace('&', "&amp;");
+    let script_attributes = match input_type {
+        InputType::Script => "defer",
+        InputType::Module => "type=\"module\"",
+    };
+    format!(
+        "<!doctype html><html><head>\
+         <script {script_attributes} src=\"{entry_url}\"></script>\
+         </head><body></body></html>"
+    )
 }
 
 async fn disable_cache(mut request: Request, next: Next) -> Response {

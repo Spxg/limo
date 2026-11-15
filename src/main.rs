@@ -1,28 +1,39 @@
 mod server;
 
 use std::{
+    fs,
     io::{self, IsTerminal, Read, Write},
     path::{Path, PathBuf},
     time::Duration,
 };
 
-use anyhow::{Context, Result, bail};
-use clap::Parser;
+use anyhow::{Context, Result, bail, ensure};
+use clap::{Parser, ValueEnum};
 use moli_core::{
     RendererOutputItem, RendererOutputTransportMessage, RendererOutputTransportReceiver,
     RendererProtocolObservation,
+    protocol_types::ScriptRunOutcome,
     runtime::{Browser, BrowserConfig, RenderedDomWaitUntil},
 };
+use oxc_allocator::Allocator;
+use oxc_parser::Parser as OxcParser;
+use oxc_span::SourceType;
 use tokio::runtime::Builder;
 
-use crate::server::{LocalServer, blank_router, script_router};
+use crate::server::{LocalServer, script_router, source_router};
+
+#[derive(Clone, Copy, ValueEnum)]
+enum InputType {
+    Script,
+    Module,
+}
 
 #[derive(Parser)]
 #[command(version, about = "Run JavaScript with moli's browser Web APIs")]
 struct Cli {
     /// JavaScript entry file, or - to read standard input.
     file: Option<PathBuf>,
-    /// Evaluate JavaScript code.
+    /// Run JavaScript code.
     #[arg(
         short = 'e',
         long = "eval",
@@ -30,6 +41,9 @@ struct Cli {
         conflicts_with = "file"
     )]
     eval: Option<String>,
+    /// JavaScript input type (inferred if omitted).
+    #[arg(long, value_enum)]
+    input_type: Option<InputType>,
     /// Local server port (random if omitted).
     #[arg(long)]
     port: Option<u16>,
@@ -55,7 +69,14 @@ async fn run(cli: Cli) -> Result<()> {
     let source = match cli.eval {
         Some(source) => Some(source),
         None => match cli.file.as_deref() {
-            Some(path) if path != Path::new("-") => None,
+            Some(path) if path != Path::new("-") => {
+                ensure!(
+                    path.is_file(),
+                    "JavaScript entry is not a file: {}",
+                    path.display()
+                );
+                None
+            }
             None if io::stdin().is_terminal() => {
                 bail!("provide a JavaScript file, --eval, or standard input; see --help")
             }
@@ -68,17 +89,6 @@ async fn run(cli: Cli) -> Result<()> {
             }
         },
     };
-    let app = if source.is_some() {
-        blank_router()
-    } else {
-        script_router(
-            cli.file
-                .as_deref()
-                .context("missing JavaScript entry file")?,
-        )?
-    };
-    let server = LocalServer::start(app, cli.port.unwrap_or(0)).await?;
-
     let timeout = Duration::from_millis(cli.timeout_ms.unwrap_or(600_000));
     let mut config = BrowserConfig::default();
     config.set_profile_dir(cli.profile_dir);
@@ -89,18 +99,49 @@ async fn run(cli: Cli) -> Result<()> {
     let console = tokio::spawn(forward_console(output_rx));
 
     let execution: Result<()> = tokio::time::timeout(timeout, async {
-        if let Some(source) = source {
-            let mut page = browser.fetch(server.base_url()).await?;
-            let result = page.evaluate_runtime_expression_async(&source).await?;
-            if let Some(exception) = result.get("exception").and_then(|value| value.as_str()) {
-                bail!("{exception}");
-            }
-            browser.wait_for_page_idle(&mut page, timeout).await?;
+        let input_type = match cli.input_type {
+            Some(input_type) => input_type,
+            None => match &source {
+                Some(source) => detect_input_type(source),
+                None => {
+                    let path = cli
+                        .file
+                        .as_deref()
+                        .context("missing JavaScript entry file")?;
+                    match path.extension().and_then(|extension| extension.to_str()) {
+                        Some("mjs") => InputType::Module,
+                        Some("cjs") => bail!("CommonJS (.cjs) entry files are not supported"),
+                        _ => {
+                            let source = fs::read_to_string(path).with_context(|| {
+                                format!("failed to read JavaScript entry: {}", path.display())
+                            })?;
+                            detect_input_type(&source)
+                        }
+                    }
+                }
+            },
+        };
+
+        let app = if let Some(source) = source {
+            source_router(source, input_type)
         } else {
-            browser
-                .fetch_with_wait_until(server.base_url(), RenderedDomWaitUntil::Idle, timeout)
-                .await
-                .context("JavaScript execution failed")?;
+            script_router(
+                cli.file
+                    .as_deref()
+                    .context("missing JavaScript entry file")?,
+                input_type,
+            )?
+        };
+        let server = LocalServer::start(app, cli.port.unwrap_or(0)).await?;
+
+        let page = browser
+            .fetch_with_wait_until(server.base_url(), RenderedDomWaitUntil::Idle, timeout)
+            .await
+            .context("JavaScript execution failed")?;
+        for run in page.script_execution().runs() {
+            if let ScriptRunOutcome::Failed(message) = run.outcome() {
+                bail!("{message}");
+            }
         }
         Ok(())
     })
@@ -115,6 +156,16 @@ async fn run(cli: Cli) -> Result<()> {
     execution?;
     output.context("failed to forward console output")?;
     Ok(())
+}
+
+fn detect_input_type(source: &str) -> InputType {
+    let allocator = Allocator::default();
+    let parsed = OxcParser::new(&allocator, source, SourceType::unambiguous()).parse();
+    if parsed.program.source_type.is_module() {
+        InputType::Module
+    } else {
+        InputType::Script
+    }
 }
 
 async fn forward_console(mut output: RendererOutputTransportReceiver) -> Result<()> {
