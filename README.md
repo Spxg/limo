@@ -8,28 +8,24 @@ Install from source:
 cargo install --locked --path .
 ```
 
-Run a JavaScript file:
+Run a JavaScript file, evaluate code, or read code from standard input:
 
 ```sh
-limo script.js
-limo script.mjs
+limo [OPTIONS] [FILE]
 ```
 
-`.js` files run as classic scripts, and `.mjs` files run as ES modules. All `console` output is forwarded to stdout in real time. limo exits when moli considers the page idle, with a default timeout of ten minutes.
+`.js` files run as classic scripts, and `.mjs` files run as ES modules.
 
 ## Options
 
-```sh
-limo [OPTIONS] <FILE>
-```
-
 | Option | Description | Default |
 | --- | --- | --- |
+| `-e, --eval <CODE>` | Evaluate JavaScript code | |
 | `--port <PORT>` | Local server port | Random port |
 | `--profile-dir <PATH>` | Directory for persistent browser data | Temporary storage |
 | `--timeout-ms <MS>` | Execution timeout in milliseconds | `600000` |
 
-Run `limo -h` for help.
+Choose either a file or `--eval`. Run `limo -h` for help.
 
 ## Examples
 

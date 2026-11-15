@@ -59,6 +59,16 @@ pub fn script_router(path: &Path) -> Result<Router> {
         .layer(middleware::from_fn(disable_cache)))
 }
 
+pub fn blank_router() -> Router {
+    Router::new()
+        .route(
+            "/",
+            get(|| async { Html("<!doctype html><html><head></head><body></body></html>") }),
+        )
+        .fallback_service(ServeDir::new("."))
+        .layer(middleware::from_fn(disable_cache))
+}
+
 async fn disable_cache(mut request: Request, next: Next) -> Response {
     request.headers_mut().remove(header::IF_MODIFIED_SINCE);
     let mut response = next.run(request).await;

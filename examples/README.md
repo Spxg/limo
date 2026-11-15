@@ -2,6 +2,18 @@
 
 Run these commands from the repository root:
 
+## Code snippets and standard input
+
+```sh
+limo -e 'console.log(1 + 2)'
+echo 'console.log(1 + 2)' | limo -
+echo 'console.log(1 + 2)' | limo
+```
+
+These inputs run as classic scripts. Use dynamic `import()` to load modules, or run an `.mjs` file for static imports and top-level `await`. Relative URLs for `fetch`, Workers, and dynamic imports resolve from the current working directory.
+
+## Files
+
 ```sh
 limo examples/dom.js
 limo examples/modules/main.mjs
