@@ -11,8 +11,8 @@ cargo install --locked --path .
 Run a JavaScript file:
 
 ```sh
-limo examples/dom.js
-limo examples/modules/main.mjs
+limo script.js
+limo script.mjs
 ```
 
 `.js` files run as classic scripts, and `.mjs` files run as ES modules. All `console` output is forwarded to stdout in real time. limo exits when moli considers the page idle, with a default timeout of ten minutes.
@@ -35,22 +35,4 @@ Run `limo -h` for help.
 
 ## Examples
 
-| File | Description |
-| --- | --- |
-| [dom.js](examples/dom.js) | DOM manipulation and events |
-| [async.js](examples/async.js) | Timers and microtasks |
-| [fetch.mjs](examples/fetch.mjs) | Fetch a local JSON file |
-| [modules/main.mjs](examples/modules/main.mjs) | ES module imports |
-| [workers/main.js](examples/workers/main.js) | Worker messaging |
-| [opfs-sah/main.js](examples/opfs-sah/main.js) | Read and write OPFS through a sync access handle in a Worker |
-| [idb.mjs](examples/idb.mjs) | IndexedDB reads and writes |
-| [cors.mjs](examples/cors.mjs) | Cross-origin requests and CORS restrictions |
-
-To reuse stored data across runs, use a fixed port and the same profile directory:
-
-```sh
-limo --port 3000 --profile-dir /tmp/limo-profile examples/opfs-sah/main.js
-limo --port 3000 --profile-dir /tmp/limo-profile examples/idb.mjs
-```
-
-Each example increments its own persisted counter on every run.
+See the [examples](examples/README.md).
