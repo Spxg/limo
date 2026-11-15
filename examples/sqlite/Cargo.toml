@@ -1,0 +1,14 @@
+[package]
+name = "limo-sqlite-example"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+sqlite-wasm-rs = { version = "0.6.3", default-features = false, features = ["wasm-bindgen"] }
+sqlite-wasm-vfs = { version = "0.3.0", default-features = false, features = ["sahpool"] }
+wasm-bindgen = { version = "=0.2.130", default-features = false, features = ["std"] }
+wasm-bindgen-futures = { version = "0.4.80", default-features = false, features = ["std"] }
