@@ -1,4 +1,4 @@
-A JavaScript command-line runner powered by [moli](https://github.com/lexmount/moli). Run scripts in a browser environment with Web APIs including DOM, fetch, Worker, OPFS, and IndexedDB.
+A JavaScript command-line runner powered by [moli](https://github.com/lexmount/moli). Run scripts in a browser environment with Web APIs.
 
 ## Usage
 
@@ -16,8 +16,6 @@ limo script.mjs
 ```
 
 `.js` files run as classic scripts, and `.mjs` files run as ES modules. All `console` output is forwarded to stdout in real time. limo exits when moli considers the page idle, with a default timeout of ten minutes.
-
-Scripts run under a local HTTP origin and follow the browser's same-origin policy and CORS rules.
 
 ## Options
 
