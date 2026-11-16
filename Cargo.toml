@@ -25,6 +25,10 @@ strip = false
 # over parallel code generation.
 codegen-units = 1
 
+[profile.dist]
+inherits = "release"
+strip = true
+
 # moli requires these upstream forks; Cargo patches do not propagate from dependencies.
 [patch.crates-io]
 # Share glyph preparation between CPU rendering and PDF ink measurement.
