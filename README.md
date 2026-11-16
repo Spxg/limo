@@ -1,37 +1,29 @@
-A JavaScript command-line runner powered by [moli](https://github.com/lexmount/moli). Run scripts in a browser environment with Web APIs.
+# Limo
 
-## Usage
+Limo runs JavaScript in a browser environment with full Web API support, right from your terminal. Powered by [moli](https://github.com/lexmount/moli).
 
-Install from source:
+See the [guide](https://spxg.github.io/limo/) for installation and usage.
 
-```sh
-cargo install --locked --path .
+## Example
+
+```js
+// dom.js
+const button = document.createElement("button");
+button.textContent = "Click me";
+button.addEventListener("click", () => {
+  console.log("Hello from the DOM!");
+});
+document.body.append(button);
+
+button.click();
+console.log(document.querySelector("button").outerHTML);
 ```
 
-Run a JavaScript file, code snippet, or code from standard input:
-
 ```sh
-limo [OPTIONS] [FILE]
+limo dom.js
 ```
 
-By default, `.mjs` files run as ES modules, `.cjs` files are rejected because CommonJS is unsupported, and other inputs use automatic detection.
-
-## Options
-
-| Option | Description | Default |
-| --- | --- | --- |
-| `-e, --eval <CODE>` | Run JavaScript code | |
-| `--input-type <TYPE>` | `script` or `module`, for files, `--eval`, and standard input | File extension or automatic detection |
-| `--port <PORT>` | Local server port | Random port |
-| `--profile-dir <PATH>` | Directory for persistent browser data | Temporary storage |
-| `--timeout-ms <MS>` | Execution timeout in milliseconds | `600000` |
-
-Choose either a file or `--eval`. Run `limo -h` for help.
-
-## Examples
-
-See the [examples](examples/README.md).
-
-## Testing
-
-See [runtest](runtest/README.md) for the command and output test runner.
+```text
+Hello from the DOM!
+<button>Click me</button>
+```

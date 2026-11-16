@@ -1,0 +1,52 @@
+name: Pages
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - website/**
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: '0.5.4'
+
+      - name: Build website
+        env:
+          MDBOOK_OUTPUT__HTML__SITE_URL: ${{ steps.pages.outputs.base_path }}/guide/book/
+        run: |
+          mkdir -p "$RUNNER_TEMP/site"
+          cp -r website/index.html website/styles.css website/main.js website/fonts "$RUNNER_TEMP/site/"
+          mdbook build website/guide --dest-dir "$RUNNER_TEMP/site/guide/book"
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/site
+
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

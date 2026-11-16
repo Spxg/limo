@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Limo runs JavaScript in a browser environment with full Web API support, right from your terminal.">
+    <title>Limo — Run JavaScript with Web APIs</title>
+    <link rel="preload" href="fonts/open-sans.woff2" as="font" type="font/woff2" crossorigin>
+    <script>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem("limo-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      } catch {}
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+        <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4"/></symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+        <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+        <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+        <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.76-.24.76-.54v-2.08c-3.12.68-3.78-1.33-3.78-1.33-.51-1.29-1.25-1.63-1.25-1.63-1.02-.7.08-.69.08-.69 1.12.08 1.71 1.15 1.71 1.15.99 1.69 2.59 1.2 3.22.92.1-.72.39-1.2.71-1.48-2.49-.28-5.11-1.25-5.11-5.54 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.08 1.15a10.73 10.73 0 0 1 5.6 0c2.14-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.96.71.78 1.15 1.78 1.15 3 0 4.3-2.63 5.25-5.13 5.53.4.35.76 1.03.76 2.08v3.07c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></symbol>
+      </defs>
+    </svg>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-actions">
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon theme-sun" aria-hidden="true"><use href="#icon-sun"/></svg><svg class="icon theme-moon" aria-hidden="true"><use href="#icon-moon"/></svg></button>
+        <a class="icon-button" href="https://github.com/Spxg/limo" aria-label="Limo on GitHub"><svg class="icon" aria-hidden="true"><use href="#icon-github"/></svg></a>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="backdrop" aria-hidden="true"></div>
+      <div class="hero">
+        <section class="hero-copy" aria-labelledby="hero-title">
+          <div>
+            <h1 id="hero-title">Run JavaScript<br>with Web APIs</h1>
+            <p class="hero-description">Limo runs JavaScript in a browser environment with full Web API support, right from your terminal.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#get-started" data-install>Get Limo</a>
+            <a class="button button-secondary" href="guide/book/index.html">Read the documentation</a>
+          </div>
+        </section>
+
+        <section class="example-showcase" id="examples" aria-label="Try Limo with these examples">
+          <div class="editor">
+            <div class="example-tabs" role="tablist" aria-label="JavaScript examples">
+              <button class="example-tab" id="tab-dom" type="button" role="tab" aria-controls="example-panel" aria-selected="true" data-example="dom">DOM</button>
+              <button class="example-tab" id="tab-fetch" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="fetch">Fetch</button>
+              <button class="example-tab" id="tab-workers" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="workers">Workers</button>
+              <button class="example-tab" id="tab-indexeddb" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="indexeddb">IndexedDB</button>
+            </div>
+            <div id="example-panel" role="tabpanel" aria-labelledby="tab-dom" tabindex="0">
+              <h2 class="sr-only" id="example-title">A DOM, right in your terminal.</h2>
+              <p class="sr-only" id="example-description">Create elements, handle events, and query a browser document.</p>
+              <div class="file-tabs" id="file-tabs" role="group" aria-label="Example files"><button class="file-tab" type="button" aria-pressed="true">dom.js</button></div>
+              <pre class="source-code" id="source-pre" aria-label="dom.js source code" tabindex="0"><code id="source-code">const button = document.createElement("button");
+button.textContent = "Click me";
+button.addEventListener("click", () =&gt; {
+  console.log("Hello from the DOM!");
+});
+document.body.append(button);
+
+button.click();
+console.log(document.querySelector("button").outerHTML);</code></pre>
+              <div class="code-footer"><span id="code-language">JavaScript</span><button class="copy-button" id="copy-code" type="button" aria-label="Copy dom.js code"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span>Copy to clipboard</span></button></div>
+              <div class="terminal">
+                <div class="terminal-command"><span class="prompt" aria-hidden="true">$</span><code id="run-command" tabindex="0">limo dom.js</code><button class="copy-button copy-command" id="copy-command" type="button" aria-label="Copy run command"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span class="sr-only">Copy</span></button></div>
+                <div class="terminal-label">Example output</div>
+                <pre class="terminal-output" id="terminal-output">Hello from the DOM!
+&lt;button&gt;Click me&lt;/button&gt;</pre>
+              </div>
+            </div>
+          </div>
+          <p class="learn-more">Explore more Web APIs in our <a href="https://github.com/Spxg/limo/blob/master/examples/README.md">examples</a>.</p>
+        </section>
+      </div>
+    </main>
+
+    <dialog class="install-dialog" id="get-started" aria-labelledby="start-title">
+      <div class="dialog-heading"><h2 id="start-title">Get Limo</h2><button class="icon-button" id="close-install" type="button" aria-label="Close installation instructions"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+      <p>Install from source with Rust:</p>
+      <div class="install-panel"><pre tabindex="0" aria-label="Installation commands"><code>git clone https://github.com/Spxg/limo.git
+cd limo
+cargo install --locked --path .</code></pre><div class="code-footer"><span>Shell</span><button class="copy-button" id="copy-install" type="button" aria-label="Copy installation commands"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span aria-live="polite">Copy to clipboard</span></button></div></div>
+      <p>Then run a script:</p>
+      <pre class="install-run"><code>limo examples/dom.js</code></pre>
+      <a href="guide/book/index.html">Read the documentation <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+    </dialog>
+    <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
+  </body>
+</html>

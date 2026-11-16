@@ -1,0 +1,10 @@
+[book]
+title = "Limo Guide"
+description = "Run JavaScript in a browser environment with Web APIs."
+language = "en"
+src = "src"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/Spxg/limo"
