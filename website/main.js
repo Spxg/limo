@@ -19,26 +19,38 @@ console.log(document.querySelector("button").outerHTML);`,
     command: "limo dom.js",
     output: "Hello from the DOM!\n<button>Click me</button>",
   },
+  canvas: {
+    title: "Draw an image with Canvas.",
+    description: "Draw a square and export it as a PNG data URL.",
+    files: [{
+      name: "canvas.js",
+      code: `const canvas = document.createElement("canvas");
+canvas.width = canvas.height = 64;
+
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "#417e38";
+ctx.fillRect(0, 0, 64, 64);
+
+console.log(canvas.toDataURL("image/png"));`,
+    }],
+    command: "limo canvas.js",
+    output: "data:image/png;base64,...",
+  },
   fetch: {
     title: "Fetch. Just like in the browser.",
-    description: "Read a local JSON file with the same Fetch API you already use.",
+    description: "Query the GitHub API with the same Fetch API you already use.",
     files: [{
       name: "fetch.mjs",
-      code: `const response = await fetch("./data.json");
-const data = await response.json();
+      code: `const response = await fetch(
+  "https://api.github.com/repos/Spxg/limo",
+);
+const repo = await response.json();
 
-console.log(data.message);
-console.log(data.items.join(", "));`,
-    }, {
-      name: "data.json",
-      language: "json",
-      code: `{
-  "message": "Hello from a local file!",
-  "items": ["DOM", "fetch", "Worker"]
-}`,
+console.log(repo.full_name);
+console.log(repo.description);`,
     }],
     command: "limo fetch.mjs",
-    output: "Hello from a local file!\nDOM, fetch, Worker",
+    output: "Spxg/limo\nRun JavaScript with browser Web APIs",
   },
   workers: {
     title: "Let a Worker handle it.",
@@ -67,7 +79,7 @@ worker.postMessage([1, 2, 3, 4, 5]);`,
     title: "Store data with IndexedDB.",
     description: "Write and read data in a persistent browser database.",
     files: [{
-      name: "indexeddb.js",
+      name: "indexed_db.js",
       code: `const request = indexedDB.open("limo-demo", 1);
 request.onupgradeneeded = () => {
   request.result.createObjectStore("messages");
@@ -83,8 +95,45 @@ request.onsuccess = () => {
   transaction.oncomplete = () => db.close();
 };`,
     }],
-    command: "limo --port 3000 --profile-dir .limo-profile indexeddb.js",
+    command: "limo --port 3000 --profile-dir .limo-profile indexed_db.js",
     output: "Hello from IndexedDB!",
+  },
+  opfs: {
+    title: "Read and write files with OPFS.",
+    description: "Use a synchronous access handle in a Worker to store and read a file.",
+    files: [{
+      name: "opfs_sah.js",
+      code: `const worker = new Worker("./worker.js");
+
+worker.onmessage = ({ data }) => {
+  console.log(data);
+  worker.terminate();
+};`,
+    }, {
+      name: "worker.js",
+      code: `async function run() {
+  const root = await navigator.storage.getDirectory();
+  const file = await root.getFileHandle("greeting.txt", { create: true });
+  const handle = await file.createSyncAccessHandle();
+
+  try {
+    const data = new TextEncoder().encode("Hello from OPFS!");
+    const size = handle.write(data, { at: 0 });
+    handle.truncate(size);
+    handle.flush();
+
+    const saved = new Uint8Array(size);
+    handle.read(saved, { at: 0 });
+    return new TextDecoder().decode(saved);
+  } finally {
+    handle.close();
+  }
+}
+
+run().then((message) => self.postMessage(message));`,
+    }],
+    command: "limo --port 3000 --profile-dir .limo-profile opfs_sah.js",
+    output: "Hello from OPFS!",
   },
 };
 
