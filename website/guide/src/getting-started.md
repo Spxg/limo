@@ -2,21 +2,27 @@
 
 Limo runs JavaScript in a browser environment, right from your terminal.
 
-## Install from source
+## Install
 
-You need Git, Rust, and native build tools. Clone the repository and install Limo with Cargo:
+Linux and macOS:
 
 ```sh
-git clone https://github.com/Spxg/limo.git
-cd limo
-cargo install --locked --path .
+curl -fsSL https://github.com/Spxg/limo/releases/latest/download/limo-installer.sh | sh
 ```
 
-Cargo installs the `limo` executable in its binary directory. Make sure that directory is on your `PATH`.
+Windows PowerShell:
+
+```powershell
+irm https://github.com/Spxg/limo/releases/latest/download/limo-installer.ps1 | iex
+```
+
+Releases support Linux (glibc), macOS 13+, and Windows on x86_64 and ARM64.
+
+Limo installs to `~/.local/bin` on Linux and macOS, or `%LOCALAPPDATA%\Limo\bin` on Windows. Follow the printed instructions to add that directory to your `PATH` if needed.
 
 ## Run your first script
 
-Create `hello.js`:
+Create `dom.js`:
 
 ```js
 const title = document.createElement("h1");
@@ -29,7 +35,7 @@ console.log(document.querySelector("h1").textContent);
 Run it from the terminal:
 
 ```sh
-limo hello.js
+limo dom.js
 ```
 
 ```text

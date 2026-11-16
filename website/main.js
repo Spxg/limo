@@ -223,8 +223,10 @@ copyCode.addEventListener("click", () => {
 copyCommand.addEventListener("click", () => {
   copyText(examples[currentExample].command, copyCommand);
 });
-document.getElementById("copy-install").addEventListener("click", (event) => {
-  copyText("git clone https://github.com/Spxg/limo.git\ncd limo\ncargo install --locked --path .", event.currentTarget);
+document.querySelectorAll("[data-copy-install]").forEach((button) => {
+  button.addEventListener("click", () => {
+    copyText(button.closest(".install-panel").querySelector("code").textContent, button);
+  });
 });
 
 showExample("dom");

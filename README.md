@@ -4,6 +4,20 @@ Limo runs JavaScript in a browser environment with full Web API support, right f
 
 See the [guide](https://spxg.github.io/limo/) for installation and usage.
 
+## Install
+
+Linux and macOS:
+
+```sh
+curl -fsSL https://github.com/Spxg/limo/releases/latest/download/limo-installer.sh | sh
+```
+
+Windows PowerShell:
+
+```powershell
+irm https://github.com/Spxg/limo/releases/latest/download/limo-installer.ps1 | iex
+```
+
 ## Example
 
 ```js

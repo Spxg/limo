@@ -87,12 +87,12 @@ console.log(document.querySelector("button").outerHTML);</code></pre>
 
     <dialog class="install-dialog" id="get-started" aria-labelledby="start-title">
       <div class="dialog-heading"><h2 id="start-title">Get Limo</h2><button class="icon-button" id="close-install" type="button" aria-label="Close installation instructions"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
-      <p>Install from source with Rust:</p>
-      <div class="install-panel"><pre tabindex="0" aria-label="Installation commands"><code>git clone https://github.com/Spxg/limo.git
-cd limo
-cargo install --locked --path .</code></pre><div class="code-footer"><span>Shell</span><button class="copy-button" id="copy-install" type="button" aria-label="Copy installation commands"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span aria-live="polite">Copy to clipboard</span></button></div></div>
-      <p>Then run a script:</p>
-      <pre class="install-run"><code>limo examples/dom.js</code></pre>
+      <p>Linux and macOS:</p>
+      <div class="install-panel"><pre tabindex="0" aria-label="Linux and macOS installation command"><code>curl -fsSL https://github.com/Spxg/limo/releases/latest/download/limo-installer.sh | sh</code></pre><div class="code-footer"><span>Shell</span><button class="copy-button" data-copy-install type="button" aria-label="Copy Linux and macOS installation command"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span aria-live="polite">Copy to clipboard</span></button></div></div>
+      <p>Windows:</p>
+      <div class="install-panel"><pre tabindex="0" aria-label="Windows installation command"><code>irm https://github.com/Spxg/limo/releases/latest/download/limo-installer.ps1 | iex</code></pre><div class="code-footer"><span>PowerShell</span><button class="copy-button" data-copy-install type="button" aria-label="Copy Windows installation command"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span aria-live="polite">Copy to clipboard</span></button></div></div>
+      <p>Follow the installer's PATH instructions, then run a script:</p>
+      <pre class="install-run"><code>limo dom.js</code></pre>
       <a href="guide/book/index.html">Read the documentation <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
     </dialog>
     <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>

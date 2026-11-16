@@ -1,0 +1,123 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.runner }}
+    container: ${{ matrix.container }}
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: x86_64-unknown-linux-gnu
+            runner: ubuntu-latest
+            container: rust:1.96.1-bookworm
+            shell: bash
+            python: python3
+          - target: aarch64-unknown-linux-gnu
+            runner: ubuntu-24.04-arm
+            container: rust:1.96.1-bookworm
+            shell: bash
+            python: python3
+          - target: x86_64-apple-darwin
+            runner: macos-15-intel
+            shell: bash
+            python: python3
+          - target: aarch64-apple-darwin
+            runner: macos-15
+            shell: bash
+            python: python3
+          - target: x86_64-pc-windows-msvc
+            runner: windows-2025
+            shell: pwsh
+            python: python
+          - target: aarch64-pc-windows-msvc
+            runner: windows-11-arm
+            shell: pwsh
+            python: python
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+    env:
+      CARGO_INCREMENTAL: "0"
+      MACOSX_DEPLOYMENT_TARGET: "13.0"
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Linux build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends cmake libclang-dev libfontconfig1-dev pkg-config python3
+
+      - name: Check release version
+        run: >-
+          ${{ matrix.python }} -c "import os, tomllib; version = tomllib.load(open('Cargo.toml', 'rb'))['package']['version'];
+          assert os.environ['GITHUB_REF_NAME'] == 'v' + version, 'Tag must match Cargo.toml version'"
+
+      - name: Set up Rust target
+        run: rustup toolchain install "$(cat rust-toolchain)" --profile minimal --no-self-update --target ${{ matrix.target }}
+
+      - name: Build
+        run: cargo build --locked --profile dist --bin limo --target ${{ matrix.target }}
+
+      - name: Package
+        run: ${{ matrix.python }} scripts/package.py ${{ matrix.target }}
+
+      - name: Check shell installer syntax
+        if: runner.os != 'Windows'
+        run: sh -n scripts/install.sh
+
+      - name: Check PowerShell installer syntax
+        if: runner.os == 'Windows'
+        run: '[void][ScriptBlock]::Create((Get-Content scripts/install.ps1 -Raw))'
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: limo-${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+          compression-level: 0
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: limo-*
+          path: dist
+          merge-multiple: true
+
+      - name: Add installers
+        run: |
+          cp scripts/install.sh dist/limo-installer.sh
+          cp scripts/install.ps1 dist/limo-installer.ps1
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          flags=()
+          if [[ "$RELEASE_TAG" == *-* ]]; then
+            flags+=(--prerelease)
+          fi
+          gh release create "$RELEASE_TAG" dist/* --verify-tag \
+            --title "Limo $RELEASE_TAG" --generate-notes "${flags[@]}"
