@@ -54,6 +54,9 @@ struct Cli {
     /// Directory for persistent browser state.
     #[arg(long)]
     profile_dir: Option<PathBuf>,
+    /// Disable browser web security, including CORS checks.
+    #[arg(long)]
+    disable_web_security: bool,
     /// Execution timeout in milliseconds (default: 10 minutes).
     #[arg(long)]
     timeout_ms: Option<u64>,
@@ -96,6 +99,7 @@ async fn run(cli: Cli) -> Result<()> {
     let timeout = Duration::from_millis(cli.timeout_ms.unwrap_or(600_000));
     let mut config = BrowserConfig::default();
     config.set_profile_dir(cli.profile_dir);
+    config.set_web_security_disabled(cli.disable_web_security);
     let browser = Browser::new(config).context("failed to initialize moli")?;
 
     let (output_tx, output_rx) = moli_core::renderer_output_transport_channel();

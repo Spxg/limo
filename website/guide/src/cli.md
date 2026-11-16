@@ -15,6 +15,7 @@ Run `limo -h` for built-in help.
 | `--input-type <TYPE>` | Execute as `script` or `module`. Applies to files, snippets, and standard input. | File extension or syntax detection. |
 | `--port <PORT>` | Port for the local server that loads the script and nearby files. | An available port chosen by the OS. |
 | `--profile-dir <PATH>` | Directory for persistent browser state. | Temporary storage. |
+| `--disable-web-security` | Disable browser web security, including CORS checks. | Off. |
 | `--timeout-ms <MS>` | Execution timeout in milliseconds. | `600000` (10 minutes). |
 | `-h, --help` | Print help. | |
 | `-V, --version` | Print the version. | |

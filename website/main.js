@@ -52,6 +52,22 @@ console.log(repo.description);`,
     command: "limo fetch.mjs",
     output: "Spxg/limo\nRun JavaScript with browser Web APIs",
   },
+  cors: {
+    title: "Fetch without CORS.",
+    description: "Disable CORS checks to read a cross-origin API response.",
+    files: [{
+      name: "fetch.mjs",
+      code: `const response = await fetch(
+  "https://api.bilibili.com/x/web-interface/view?bvid=BV1GJ411x7h7",
+);
+const { code, message, data } = await response.json();
+if (code !== 0) throw new Error(message);
+
+console.log(data.bvid);`,
+    }],
+    command: "limo --disable-web-security fetch.mjs",
+    output: "BV1GJ411x7h7",
+  },
   workers: {
     title: "Let a Worker handle it.",
     description: "Send data between scripts with standard browser Workers.",

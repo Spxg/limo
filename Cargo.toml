@@ -7,7 +7,7 @@ edition = "2024"
 anyhow = { version = "1.0.100", default-features = false, features = ["std"] }
 axum = { version = "0.8.6", default-features = false, features = ["http1", "tokio"] }
 clap = { version = "4.5.39", default-features = false, features = ["std", "derive", "help", "usage", "error-context"] }
-moli-core = { git = "https://github.com/lexmount/moli.git", rev = "fa87b9515bd6f98aabdca48c64c6f41bc3d093e4", default-features = false }
+moli-core = { git = "https://github.com/lexmount/moli.git", rev = "e82c72348cc54cd0f1ffea22dbad7f9a959f901d", default-features = false }
 oxc_allocator = { version = "0.127.0", default-features = false }
 oxc_parser = { version = "0.127.0", default-features = false }
 oxc_span = { version = "0.127.0", default-features = false }
@@ -46,8 +46,8 @@ xml5ever = { git = "https://github.com/lexmount/html5ever", rev = "4574311c63e79
 curl = { git = "https://github.com/lexmount/curl-rust", rev = "0392e12475d8d1160d4cae07c172cac02797cc25" }
 curl-sys = { git = "https://github.com/lexmount/curl-rust", rev = "0392e12475d8d1160d4cae07c172cac02797cc25" }
 cookie = { git = "https://github.com/ldm0/cookie-rs", branch = "priority" }
-v8 = { git = "https://github.com/lexmount/moli.git", rev = "fa87b9515bd6f98aabdca48c64c6f41bc3d093e4" }
-deno_v8 = { git = "https://github.com/lexmount/moli.git", rev = "fa87b9515bd6f98aabdca48c64c6f41bc3d093e4" }
+v8 = { git = "https://github.com/lexmount/moli.git", rev = "e82c72348cc54cd0f1ffea22dbad7f9a959f901d" }
+deno_v8 = { git = "https://github.com/lexmount/moli.git", rev = "e82c72348cc54cd0f1ffea22dbad7f9a959f901d" }
 selectors = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
 servo_arc = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
 stylo = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
@@ -55,9 +55,9 @@ stylo_atoms = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a
 stylo_dom = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
 stylo_static_prefs = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
 stylo_traits = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
-svgtypes = { git = "https://github.com/lexmount/svgtypes", branch = "moli" }
-# Resolve SVG relative font weights using the CSS inherited-weight ranges.
-usvg = { git = "https://github.com/lexmount/resvg", rev = "614aaf4d21ca03a4773f1e4d07c6a404407589a2" }
+svgtypes = { git = "https://github.com/lexmount/svgtypes", rev = "520374d714d69f8e2dc93c81a9d6be559ecde3ff" }
+# Preserve original SVG selector inputs and collect unclipped source geometry.
+usvg = { git = "https://github.com/lexmount/resvg", rev = "a137793a5749c27862b724eef60c4734526b14a0" }
 taffy = { git = "https://github.com/ldm0/taffy", rev = "0a337871fa44db7d48571b06668f92737eefa8c2" }
 
 #[patch."https://github.com/lexmount/moli.git"]

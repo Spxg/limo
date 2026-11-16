@@ -30,13 +30,12 @@ An explicit `--input-type script` or `--input-type module` takes precedence over
 | --- | --- |
 | [dom.js](dom.js) | DOM manipulation and events |
 | [async.js](async.js) | Timers and microtasks |
-| [fetch.mjs](fetch.mjs) | Fetch a local JSON file |
+| [fetch.mjs](fetch.mjs) | Cross-origin GitHub and Bilibili API requests |
 | [modules/main.mjs](modules/main.mjs) | ES module imports |
 | [workers/main.js](workers/main.js) | Worker messaging |
 | [opfs-sah/main.js](opfs-sah/main.js) | Read and write OPFS through a sync access handle in a Worker |
 | [sqlite/main.js](sqlite/main.js) | Persist SQLite data through the SAH VFS and query rows (build steps below) |
 | [idb.mjs](idb.mjs) | IndexedDB reads and writes |
-| [cors.mjs](cors.mjs) | Cross-origin requests and CORS restrictions |
 
 ## Persistent storage
 
