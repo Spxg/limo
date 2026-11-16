@@ -11,7 +11,11 @@ use anyhow::{Context, Result, bail, ensure};
 use clap::{Parser, ValueEnum};
 use moli_core::{
     RendererOutputItem, RendererOutputTransportMessage, RendererOutputTransportReceiver,
-    RendererProtocolObservation,
+    RendererOwnerAction, RendererProtocolObservation,
+    page::{
+        RendererDedicatedWorkerTargetEvent, RendererServiceWorkerTargetEvent,
+        RendererSharedWorkerTargetEvent,
+    },
     protocol_types::ScriptRunOutcome,
     runtime::{Browser, BrowserConfig, RenderedDomWaitUntil},
 };
@@ -174,18 +178,33 @@ async fn forward_console(mut output: RendererOutputTransportReceiver) -> Result<
             continue;
         };
         for record in publication.into_records() {
-            if let RendererOutputItem::Observation(RendererProtocolObservation::RuntimeConsole(
-                message,
-            )) = record.into_parts().1
-            {
-                let text = message
-                    .message
-                    .split_once(": ")
-                    .map_or(message.message.as_str(), |(_, text)| text);
-                let mut stdout = io::stdout().lock();
-                writeln!(stdout, "{text}")?;
-                stdout.flush()?;
-            }
+            let message = match record.into_parts().1 {
+                RendererOutputItem::Observation(RendererProtocolObservation::RuntimeConsole(
+                    message,
+                )) => message.message,
+                RendererOutputItem::OwnerAction(
+                    RendererOwnerAction::DedicatedWorkerTargetLifecycle(
+                        RendererDedicatedWorkerTargetEvent::Console { message, .. },
+                    ),
+                ) => message.message,
+                RendererOutputItem::OwnerAction(
+                    RendererOwnerAction::SharedWorkerTargetLifecycle(
+                        RendererSharedWorkerTargetEvent::Console { message, .. },
+                    ),
+                ) => message.message,
+                RendererOutputItem::OwnerAction(
+                    RendererOwnerAction::ServiceWorkerTargetLifecycle(
+                        RendererServiceWorkerTargetEvent::Console { message, .. },
+                    ),
+                ) => message.message,
+                _ => continue,
+            };
+            let text = message
+                .split_once(": ")
+                .map_or(message.as_str(), |(_, text)| text);
+            let mut stdout = io::stdout().lock();
+            writeln!(stdout, "{text}")?;
+            stdout.flush()?;
         }
     }
     if output.is_terminal() {
