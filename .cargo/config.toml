@@ -1,3 +1,6 @@
+[alias]
+runtest = "run --locked --manifest-path runtest/Cargo.toml --"
+
 # Keep RELR disabled for now. GNU/Linux binaries using packed relative
 # relocations require glibc 2.36 or newer and would not run on supported older
 # distributions such as Ubuntu 22.04, Debian 11, or RHEL 9.

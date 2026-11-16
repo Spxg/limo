@@ -1,0 +1,9 @@
+[package]
+name = "runtest"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+anyhow = { version = "1.0.100", default-features = false, features = ["std"] }
+shlex = { version = "2.0.1", default-features = false, features = ["std"] }

@@ -1,0 +1,3 @@
+const response = await fetch(import.meta.url);
+console.log("extensionless MIME:", response.headers.get("content-type"));
+console.log("extensionless module: done");

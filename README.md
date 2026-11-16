@@ -31,3 +31,7 @@ Choose either a file or `--eval`. Run `limo -h` for help.
 ## Examples
 
 See the [examples](examples/README.md).
+
+## Testing
+
+See [runtest](runtest/README.md) for the command and output test runner.
