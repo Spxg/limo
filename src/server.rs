@@ -25,6 +25,7 @@ pub fn script_router(path: &Path, input_type: InputType) -> Result<Router> {
         .and_then(|name| name.to_str())
         .context("JavaScript filename is not valid UTF-8")?;
 
+    // Use a placeholder base to URL-encode the filename; only the path is used below.
     let mut entry_url = Url::parse("http://localhost/")?;
     entry_url
         .path_segments_mut()
@@ -50,9 +51,9 @@ pub fn script_router(path: &Path, input_type: InputType) -> Result<Router> {
         .layer(middleware::from_fn(disable_cache)))
 }
 
-pub fn source_router(source: String, input_type: InputType) -> Router {
-    let entry_path = "/__limo_input__.js";
-    let html = entry_html(entry_path, input_type);
+pub fn source_router(source: String, name: &str, input_type: InputType) -> Router {
+    let entry_path = format!("/{name}");
+    let html = entry_html(&entry_path, input_type);
     Router::new()
         .route(
             "/",
@@ -62,7 +63,7 @@ pub fn source_router(source: String, input_type: InputType) -> Router {
             }),
         )
         .route(
-            entry_path,
+            &entry_path,
             get(move || {
                 let source = source.clone();
                 async move { ([(header::CONTENT_TYPE, "text/javascript")], source) }

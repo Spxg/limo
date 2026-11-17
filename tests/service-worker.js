@@ -1,8 +1,8 @@
 // RUN: limo --timeout-ms 5000 %s
-// OUTPUT: service log: preserved
-// OUTPUT: service warn: preserved
-// OUTPUT:
-// OUTPUT: service: done
+// STDOUT: service log: preserved
+// STDOUT: service warn: preserved
+// STDOUT:
+// STDOUT: service: done
 
 const keepAlive = setInterval(() => {}, 100);
 const registration = await navigator.serviceWorker.register("./fixtures/service-console.js");

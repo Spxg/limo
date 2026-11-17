@@ -1,8 +1,8 @@
 // RUN: limo --timeout-ms 5000 %s
-// OUTPUT: entry name: path space & #%.mjs
-// OUTPUT: relative import: hello from module
-// OUTPUT: relative fetch: local fixture
-// OUTPUT: special path: done
+// STDOUT: entry name: path space & #%.mjs
+// STDOUT: relative import: hello from module
+// STDOUT: relative fetch: local fixture
+// STDOUT: special path: done
 
 import { message } from "./fixtures/message.mjs";
 

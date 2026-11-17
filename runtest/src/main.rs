@@ -78,8 +78,8 @@ fn run_file(root: &Path, limo: &Path, path: &Path) -> Result<usize> {
         let text = text.trim_start();
         let Some(command) = text.strip_prefix("// RUN:") else {
             ensure!(
-                !text.starts_with("// OUTPUT:"),
-                "line {}: OUTPUT must immediately follow RUN or OUTPUT",
+                !text.starts_with("// STDOUT:") && !text.starts_with("// STDERR:"),
+                "line {}: STDOUT and STDERR must immediately follow RUN, STDOUT or STDERR",
                 line + 1
             );
             continue;
@@ -90,9 +90,15 @@ fn run_file(root: &Path, limo: &Path, path: &Path) -> Result<usize> {
         ensure!(!args.is_empty(), "line {}: RUN command is empty", line + 1);
         let args: Vec<_> = args.iter().map(|arg| arg.replace("%s", file)).collect();
 
-        let mut expected = None;
+        let mut expected_stdout = None;
+        let mut expected_stderr = None;
         while let Some((_, text)) = lines.peek() {
-            let Some(output) = text.trim_start().strip_prefix("// OUTPUT:") else {
+            let text = text.trim_start();
+            let (expected, output) = if let Some(output) = text.strip_prefix("// STDOUT:") {
+                (&mut expected_stdout, output)
+            } else if let Some(output) = text.strip_prefix("// STDERR:") {
+                (&mut expected_stderr, output)
+            } else {
                 break;
             };
             let expected = expected.get_or_insert_with(String::new);
@@ -114,15 +120,20 @@ fn run_file(root: &Path, limo: &Path, path: &Path) -> Result<usize> {
             .output()
             .with_context(|| format!("line {}: failed to execute {command}", line + 1))?;
 
-        // OUTPUT is the assertion; the command's exit status is ignored.
-        if let Some(expected) = expected {
-            let actual = String::from_utf8(output.stdout)?.replace("\r\n", "\n");
-            if actual != expected {
-                bail!(
-                    "line {}: {command}\nstdout mismatch\nexpected: {expected:?}\n  actual: {actual:?}\nstderr:\n{}",
-                    line + 1,
-                    String::from_utf8_lossy(&output.stderr)
-                );
+        // Only the declared output streams are asserted; exit status is ignored.
+        for (stream, expected, actual) in [
+            ("stdout", expected_stdout, output.stdout.as_slice()),
+            ("stderr", expected_stderr, output.stderr.as_slice()),
+        ] {
+            if let Some(expected) = expected {
+                let actual = std::str::from_utf8(actual)?.replace("\r\n", "\n");
+                if actual != expected {
+                    bail!(
+                        "line {}: {command}\n{stream} mismatch\nexpected: {expected:?}\n  actual: {actual:?}\nstderr:\n{}",
+                        line + 1,
+                        String::from_utf8_lossy(&output.stderr)
+                    );
+                }
             }
         }
         runs += 1;

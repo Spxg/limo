@@ -1,23 +1,30 @@
 // RUN: limo --timeout-ms 5000 %s
-// OUTPUT: script
-// OUTPUT: true
+// STDOUT: script
+// STDOUT: true
+//
 // RUN: limo --timeout-ms 5000 --input-type module %s
-// OUTPUT: module
-// OUTPUT: false
+// STDOUT: module
+// STDOUT: false
+//
 // RUN: limo --timeout-ms 5000 tests/fixtures/input-import.js
-// OUTPUT: imported value
-// OUTPUT: true
+// STDOUT: imported value
+// STDOUT: true
+//
 // RUN: limo --timeout-ms 5000 tests/fixtures/input-await.js
-// OUTPUT: awaited value
-// OUTPUT: true
+// STDOUT: awaited value
+// STDOUT: true
+//
 // RUN: limo --timeout-ms 5000 tests/fixtures/input-plain.mjs
-// OUTPUT: module
+// STDOUT: module
+//
 // RUN: limo --timeout-ms 5000 --input-type script tests/fixtures/input-plain.mjs
-// OUTPUT: script
+// STDOUT: script
+//
 // RUN: limo --timeout-ms 5000 --input-type script tests/fixtures/input-plain.cjs
-// OUTPUT: script
+// STDOUT: script
+//
 // RUN: limo --timeout-ms 5000 --input-type module tests/fixtures/input-plain.cjs
-// OUTPUT: module
+// STDOUT: module
 
 var entryBinding = "entry";
 console.log(this === globalThis ? "script" : "module");

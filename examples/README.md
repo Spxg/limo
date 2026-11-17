@@ -14,7 +14,7 @@ echo 'console.log(1 + 2)' | limo
 
 Code snippets and standard input load through a local entry script, just like files. limo first tries to compile the code as a classic script. If it has a syntax error, it tries an ES module, allowing static imports and top-level `await`. Use `--input-type script` or `--input-type module` to select explicitly. Relative URLs for `fetch`, Workers, and imports resolve from the current working directory.
 
-Execution follows moli's page behavior: some uncaught exceptions do not yet produce a nonzero exit code, and a pending top-level `await` alone does not keep the process running.
+Uncaught exceptions are printed to stderr and result in exit code `1`. A pending top-level `await` alone does not keep the process running.
 
 ## Files
 
@@ -30,6 +30,7 @@ An explicit `--input-type script` or `--input-type module` takes precedence over
 | --- | --- |
 | [dom.js](dom.js) | DOM manipulation and events |
 | [async.js](async.js) | Timers and microtasks |
+| [error.js](error.js) | An uncaught timer exception with a stack trace and exit code `1` |
 | [fetch.mjs](fetch.mjs) | Cross-origin GitHub and Bilibili API requests |
 | [modules/main.mjs](modules/main.mjs) | ES module imports |
 | [workers/main.js](workers/main.js) | Worker messaging |

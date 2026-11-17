@@ -1,8 +1,8 @@
 // RUN: limo --timeout-ms 5000 %s
-// OUTPUT: worker log: preserved
-// OUTPUT: worker warn: preserved
-// OUTPUT:
-// OUTPUT: worker: done
+// STDOUT: worker log: preserved
+// STDOUT: worker warn: preserved
+// STDOUT:
+// STDOUT: worker: done
 
 const worker = new Worker("./fixtures/worker-console.js");
 worker.onmessage = ({ data }) => {

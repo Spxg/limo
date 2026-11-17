@@ -1,10 +1,10 @@
 // RUN: limo --timeout-ms 10000 %s
-// OUTPUT: first write:
-// OUTPUT: 1 | Hello from limo
-// OUTPUT: reopen in a new worker:
-// OUTPUT: 1 | Hello from limo
-// OUTPUT: 2 | Hello from limo
-// OUTPUT: sqlite: done
+// STDOUT: first write:
+// STDOUT: 1 | Hello from limo
+// STDOUT: reopen in a new worker:
+// STDOUT: 1 | Hello from limo
+// STDOUT: 2 | Hello from limo
+// STDOUT: sqlite: done
 
 function query() {
   return new Promise((resolve, reject) => {

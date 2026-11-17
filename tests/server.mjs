@@ -1,15 +1,16 @@
 // RUN: limo --timeout-ms 5000 %s
-// OUTPUT: entry MIME: text/javascript
-// OUTPUT: entry cache: no-store
-// OUTPUT: relative fetch: local fixture
-// OUTPUT: resource cache: no-store
-// OUTPUT: last-modified: true
-// OUTPUT: conditional status: 200
-// OUTPUT: conditional body: local fixture
-// OUTPUT: server: done
+// STDOUT: entry MIME: text/javascript
+// STDOUT: entry cache: no-store
+// STDOUT: relative fetch: local fixture
+// STDOUT: resource cache: no-store
+// STDOUT: last-modified: true
+// STDOUT: conditional status: 200
+// STDOUT: conditional body: local fixture
+// STDOUT: server: done
+//
 // RUN: limo --timeout-ms 5000 --input-type module tests/fixtures/entry-source
-// OUTPUT: extensionless MIME: text/javascript
-// OUTPUT: extensionless module: done
+// STDOUT: extensionless MIME: text/javascript
+// STDOUT: extensionless module: done
 
 const entry = await fetch(import.meta.url);
 console.log("entry MIME:", entry.headers.get("content-type"));

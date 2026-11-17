@@ -1,12 +1,12 @@
 // RUN: limo --timeout-ms 5000 %s
-// OUTPUT: sync: start
-// OUTPUT: sync: end
-// OUTPUT: promise
-// OUTPUT: microtask
-// OUTPUT: timer
-// OUTPUT: interval: 1
-// OUTPUT: interval: 2
-// OUTPUT: async: done
+// STDOUT: sync: start
+// STDOUT: sync: end
+// STDOUT: promise
+// STDOUT: microtask
+// STDOUT: timer
+// STDOUT: interval: 1
+// STDOUT: interval: 2
+// STDOUT: async: done
 
 console.log("sync: start");
 Promise.resolve().then(() => console.log("promise"));

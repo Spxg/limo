@@ -11,7 +11,7 @@ moli-core = { git = "https://github.com/lexmount/moli.git", rev = "e82c72348cc54
 oxc_allocator = { version = "0.127.0", default-features = false }
 oxc_parser = { version = "0.127.0", default-features = false }
 oxc_span = { version = "0.127.0", default-features = false }
-tokio = { version = "1.53.1", default-features = false, features = ["rt", "net", "time"] }
+tokio = { version = "1.53.1", default-features = false, features = ["rt", "net", "time", "macros"] }
 tower-http = { version = "0.6.11", default-features = false, features = ["fs"] }
 url = { version = "2.5.8", default-features = false, features = ["std"] }
 
@@ -60,8 +60,8 @@ svgtypes = { git = "https://github.com/lexmount/svgtypes", rev = "520374d714d69f
 usvg = { git = "https://github.com/lexmount/resvg", rev = "a137793a5749c27862b724eef60c4734526b14a0" }
 taffy = { git = "https://github.com/ldm0/taffy", rev = "0a337871fa44db7d48571b06668f92737eefa8c2" }
 
-#[patch."https://github.com/lexmount/moli.git"]
-#moli-core = { path = "../moli/moli-core" }
+[patch."https://github.com/lexmount/moli.git"]
+moli-core = { path = "../moli/moli-core" }
 
 [patch."https://github.com/DioxusLabs/taffy"]
 taffy = { git = "https://github.com/ldm0/taffy", rev = "0a337871fa44db7d48571b06668f92737eefa8c2" }

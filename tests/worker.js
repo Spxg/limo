@@ -1,5 +1,5 @@
 // RUN: limo --timeout-ms 5000 %s
-// OUTPUT: worker: ping
+// STDOUT: worker: ping
 
 const worker = new Worker("./fixtures/worker.js");
 worker.onmessage = ({ data }) => {
