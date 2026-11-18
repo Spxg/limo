@@ -99,15 +99,6 @@ async fn run(cli: Cli) -> Result<()> {
         },
     };
 
-    let timeout = Duration::from_millis(cli.timeout_ms.unwrap_or(600_000));
-    let mut config = BrowserConfig::default();
-    config.set_profile_dir(cli.profile_dir);
-    config.set_web_security_disabled(cli.disable_web_security);
-    let browser = Browser::new(config).context("failed to initialize moli")?;
-
-    let (output_tx, output_rx) = moli_core::renderer_output_transport_channel();
-    browser.set_renderer_output_transport_sender(output_tx);
-
     let input_type = match cli.input_type {
         Some(input_type) => input_type,
         None => match &source {
@@ -150,8 +141,17 @@ async fn run(cli: Cli) -> Result<()> {
     let mut entry_url = Url::parse(server.base_url())?;
     entry_url.path_segments_mut().unwrap().push(name);
 
+    let mut config = BrowserConfig::default();
+    config.set_profile_dir(cli.profile_dir);
+    config.set_web_security_disabled(cli.disable_web_security);
+    let browser = Browser::new(config).context("failed to initialize moli")?;
+
+    let (output_tx, output_rx) = moli_core::renderer_output_transport_channel();
+    browser.set_renderer_output_transport_sender(output_tx);
+
     let mut output_task = tokio::spawn(output::forward(output_rx, entry_url.into()));
 
+    let timeout = Duration::from_millis(cli.timeout_ms.unwrap_or(600_000));
     let execution = tokio::select! {
         result = tokio::time::timeout(
             timeout,
