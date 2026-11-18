@@ -901,7 +901,7 @@ dependencies = [
 [[package]]
 name = "deno_v8"
 version = "0.3.0"
-source = "git+https://github.com/lexmount/moli.git?rev=e82c72348cc54cd0f1ffea22dbad7f9a959f901d#e82c72348cc54cd0f1ffea22dbad7f9a959f901d"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "v8",
  "v8x",
@@ -2231,10 +2231,12 @@ dependencies = [
 [[package]]
 name = "moli-action-window"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 
 [[package]]
 name = "moli-broadcast-channel"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-storage-key",
  "parking_lot",
@@ -2243,6 +2245,7 @@ dependencies = [
 [[package]]
 name = "moli-browser-profile"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "moli-cookie-cache",
@@ -2253,6 +2256,7 @@ dependencies = [
 [[package]]
 name = "moli-canvas"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "base64 0.22.1",
  "font8x8",
@@ -2263,6 +2267,7 @@ dependencies = [
 [[package]]
 name = "moli-charset-parser"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "encoding_rs",
  "html5ever",
@@ -2271,6 +2276,7 @@ dependencies = [
 [[package]]
 name = "moli-command-types"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-dom",
  "moli-page-types",
@@ -2280,6 +2286,7 @@ dependencies = [
 [[package]]
 name = "moli-content-type"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "data-url",
 ]
@@ -2287,6 +2294,7 @@ dependencies = [
 [[package]]
 name = "moli-cookie-cache"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "cookie",
@@ -2301,6 +2309,7 @@ dependencies = [
 [[package]]
 name = "moli-cookie-db"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-cookie-jar",
  "moli-sqlite",
@@ -2313,6 +2322,7 @@ dependencies = [
 [[package]]
 name = "moli-cookie-jar"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-cookie-store",
  "moli-header-field",
@@ -2327,6 +2337,7 @@ dependencies = [
 [[package]]
 name = "moli-cookie-store"
 version = "0.22.1"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "cookie",
  "document-features",
@@ -2339,6 +2350,7 @@ dependencies = [
 [[package]]
 name = "moli-core"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "bytes",
@@ -2370,6 +2382,7 @@ dependencies = [
 [[package]]
 name = "moli-crypto"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "aws-lc-rs",
  "openssl",
@@ -2378,6 +2391,7 @@ dependencies = [
 [[package]]
 name = "moli-csp"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "base64 0.22.1",
  "content-security-policy",
@@ -2392,6 +2406,7 @@ dependencies = [
 [[package]]
 name = "moli-css-parse"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "cssparser",
  "euclid",
@@ -2404,6 +2419,7 @@ dependencies = [
 [[package]]
 name = "moli-curl"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "cidr",
@@ -2422,6 +2438,7 @@ dependencies = [
 [[package]]
 name = "moli-disk-pool"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "parking_lot",
  "tempfile",
@@ -2430,6 +2447,7 @@ dependencies = [
 [[package]]
 name = "moli-dns-resolver"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "crossbeam-channel",
  "parking_lot",
@@ -2438,6 +2456,7 @@ dependencies = [
 [[package]]
 name = "moli-dom"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "html5ever",
  "indexmap",
@@ -2459,6 +2478,7 @@ dependencies = [
 [[package]]
 name = "moli-encoding"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "encoding_rs",
  "moli-charset-parser",
@@ -2470,6 +2490,7 @@ dependencies = [
 [[package]]
 name = "moli-encoding-detector"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "compact-enc-det",
  "encoding_rs",
@@ -2478,6 +2499,7 @@ dependencies = [
 [[package]]
 name = "moli-fetch"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "bytes",
@@ -2514,6 +2536,7 @@ dependencies = [
 [[package]]
 name = "moli-fetch-types"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-web-mime",
  "serde",
@@ -2524,6 +2547,7 @@ dependencies = [
 [[package]]
 name = "moli-file-api"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "base64 0.22.1",
  "encoding_rs",
@@ -2536,6 +2560,7 @@ dependencies = [
 [[package]]
 name = "moli-geometry"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "dragonbox_ecma",
  "moli-css-parse",
@@ -2544,6 +2569,7 @@ dependencies = [
 [[package]]
 name = "moli-header-field"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "serde",
@@ -2552,6 +2578,7 @@ dependencies = [
 [[package]]
 name = "moli-history"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-session-history",
  "moli-structured-clone",
@@ -2560,6 +2587,7 @@ dependencies = [
 [[package]]
 name = "moli-html-input-temporal"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "time",
 ]
@@ -2567,6 +2595,7 @@ dependencies = [
 [[package]]
 name = "moli-html-input-type"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "strum",
 ]
@@ -2574,6 +2603,7 @@ dependencies = [
 [[package]]
 name = "moli-html2md"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "icu_properties",
 ]
@@ -2581,6 +2611,7 @@ dependencies = [
 [[package]]
 name = "moli-http-cache"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "httpdate",
@@ -2595,6 +2626,7 @@ dependencies = [
 [[package]]
 name = "moli-image"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "image",
  "jpeg-decoder",
@@ -2608,6 +2640,7 @@ dependencies = [
 [[package]]
 name = "moli-import-map"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "import_map",
  "serde_json",
@@ -2617,6 +2650,7 @@ dependencies = [
 [[package]]
 name = "moli-indexeddb"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-crypto",
  "moli-file-api",
@@ -2632,6 +2666,7 @@ dependencies = [
 [[package]]
 name = "moli-indexeddb-types"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-sqlite",
  "rusqlite",
@@ -2642,6 +2677,7 @@ dependencies = [
 [[package]]
 name = "moli-inspector-json"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "serde",
  "serde_json",
@@ -2650,6 +2686,7 @@ dependencies = [
 [[package]]
 name = "moli-layout"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "brotlic",
  "euclid",
@@ -2671,6 +2708,7 @@ dependencies = [
 [[package]]
 name = "moli-local-executor"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "tokio",
 ]
@@ -2678,6 +2716,7 @@ dependencies = [
 [[package]]
 name = "moli-message-port"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "parking_lot",
 ]
@@ -2685,6 +2724,7 @@ dependencies = [
 [[package]]
 name = "moli-module-script-tree"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "url",
 ]
@@ -2692,6 +2732,7 @@ dependencies = [
 [[package]]
 name = "moli-module-syntax"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "oxc_allocator",
  "oxc_ast",
@@ -2703,6 +2744,7 @@ dependencies = [
 [[package]]
 name = "moli-multipart"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "encoding_rs",
  "moli-encoding",
@@ -2712,6 +2754,7 @@ dependencies = [
 [[package]]
 name = "moli-opfs"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-crypto",
  "parking_lot",
@@ -2724,6 +2767,7 @@ dependencies = [
 [[package]]
 name = "moli-owner-queue"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "parking_lot",
  "tokio",
@@ -2732,6 +2776,7 @@ dependencies = [
 [[package]]
 name = "moli-page-types"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "bitflags",
  "bytes",
@@ -2754,6 +2799,7 @@ dependencies = [
 [[package]]
 name = "moli-paint"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyrender",
  "anyrender_svg",
@@ -2768,6 +2814,7 @@ dependencies = [
 [[package]]
 name = "moli-parkable-image"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-disk-pool",
  "parking_lot",
@@ -2776,6 +2823,7 @@ dependencies = [
 [[package]]
 name = "moli-parser"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "html5ever",
@@ -2793,6 +2841,7 @@ dependencies = [
 [[package]]
 name = "moli-protocol-cdp"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "brotlic",
  "moli-page-types",
@@ -2805,6 +2854,7 @@ dependencies = [
 [[package]]
 name = "moli-protocol-cdp-defs"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "strum",
 ]
@@ -2812,6 +2862,7 @@ dependencies = [
 [[package]]
 name = "moli-renderer-v8"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "app_units",
@@ -2935,6 +2986,7 @@ dependencies = [
 [[package]]
 name = "moli-script"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-page-types",
  "moli-web-mime",
@@ -2943,6 +2995,7 @@ dependencies = [
 [[package]]
 name = "moli-selector"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "app_units",
  "cssparser",
@@ -2963,10 +3016,12 @@ dependencies = [
 [[package]]
 name = "moli-session-history"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 
 [[package]]
 name = "moli-shared-worker"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-storage-key",
  "parking_lot",
@@ -2975,6 +3030,7 @@ dependencies = [
 [[package]]
 name = "moli-site"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-url",
  "psl-types",
@@ -2984,6 +3040,7 @@ dependencies = [
 [[package]]
 name = "moli-sqlite"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "parking_lot",
  "rusqlite",
@@ -2994,6 +3051,7 @@ dependencies = [
 [[package]]
 name = "moli-storage-key"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-site",
  "moli-url",
@@ -3003,6 +3061,7 @@ dependencies = [
 [[package]]
 name = "moli-storage-service"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "base64 0.22.1",
@@ -3022,14 +3081,17 @@ dependencies = [
 [[package]]
 name = "moli-streams"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 
 [[package]]
 name = "moli-structured-clone"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 
 [[package]]
 name = "moli-stylesheet-blocking"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "futures-util",
  "moli-css-parse",
@@ -3046,6 +3108,7 @@ dependencies = [
 [[package]]
 name = "moli-svg"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "kurbo",
  "moli-css-parse",
@@ -3055,6 +3118,7 @@ dependencies = [
 [[package]]
 name = "moli-system-fonts"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "fontique",
  "parking_lot",
@@ -3064,6 +3128,7 @@ dependencies = [
 [[package]]
 name = "moli-time"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "time",
 ]
@@ -3071,10 +3136,12 @@ dependencies = [
 [[package]]
 name = "moli-trace"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 
 [[package]]
 name = "moli-url"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "url",
 ]
@@ -3082,6 +3149,7 @@ dependencies = [
 [[package]]
 name = "moli-url-policy"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-url",
  "url",
@@ -3090,6 +3158,7 @@ dependencies = [
 [[package]]
 name = "moli-v8-init"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "v8",
 ]
@@ -3097,6 +3166,7 @@ dependencies = [
 [[package]]
 name = "moli-v8-platform"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "crossbeam-utils",
  "parking_lot",
@@ -3109,6 +3179,7 @@ dependencies = [
 [[package]]
 name = "moli-v8-util"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-inspector-json",
  "moli-web-errors",
@@ -3120,6 +3191,7 @@ dependencies = [
 [[package]]
 name = "moli-web-bot-auth"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "base64 0.22.1",
@@ -3130,10 +3202,12 @@ dependencies = [
 [[package]]
 name = "moli-web-errors"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 
 [[package]]
 name = "moli-web-mime"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "content_disposition",
  "data-url",
@@ -3146,6 +3220,7 @@ dependencies = [
 [[package]]
 name = "moli-web-storage"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "moli-sqlite",
@@ -3157,6 +3232,7 @@ dependencies = [
 [[package]]
 name = "moli-webapi"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "anyhow",
  "base64 0.22.1",
@@ -3187,6 +3263,7 @@ dependencies = [
 [[package]]
 name = "moli-webapi-declare"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-v8-util",
  "moli-webapi-declare-derive",
@@ -3196,6 +3273,7 @@ dependencies = [
 [[package]]
 name = "moli-webapi-declare-derive"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3205,6 +3283,7 @@ dependencies = [
 [[package]]
 name = "moli-webcrypto"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "base64 0.22.1",
  "ed448-goldilocks",
@@ -3220,6 +3299,7 @@ dependencies = [
 [[package]]
 name = "moli-webidl"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-v8-util",
  "moli-webapi-declare",
@@ -3231,6 +3311,7 @@ dependencies = [
 [[package]]
 name = "moli-webidl-callback"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-v8-util",
  "v8",
@@ -3239,6 +3320,7 @@ dependencies = [
 [[package]]
 name = "moli-webidl-derive"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3248,6 +3330,7 @@ dependencies = [
 [[package]]
 name = "moli-webmcp"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "indexmap",
  "moli-dom",
@@ -3259,6 +3342,7 @@ dependencies = [
 [[package]]
 name = "moli-websocket"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "base64 0.22.1",
  "http",
@@ -3276,6 +3360,7 @@ dependencies = [
 [[package]]
 name = "moli-websocket-types"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "moli-url",
  "url",
@@ -3284,6 +3369,7 @@ dependencies = [
 [[package]]
 name = "moli-window-features"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "indexmap",
  "stylo",
@@ -3292,6 +3378,7 @@ dependencies = [
 [[package]]
 name = "moli-xpath"
 version = "0.1.0"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "log",
  "markup5ever 0.40.0",
@@ -5409,7 +5496,7 @@ checksum = "ddd74a9687298c6858e9b88ec8935ec45d22e8fd5e6394fa1bd4e99a87789c76"
 [[package]]
 name = "v8"
 version = "152.2.0"
-source = "git+https://github.com/lexmount/moli.git?rev=e82c72348cc54cd0f1ffea22dbad7f9a959f901d#e82c72348cc54cd0f1ffea22dbad7f9a959f901d"
+source = "git+https://github.com/Spxg/moli.git?rev=dc2f0caf825d17120c86d9de91c426299fe8d98e#dc2f0caf825d17120c86d9de91c426299fe8d98e"
 dependencies = [
  "bindgen 0.72.1",
  "bitflags",
