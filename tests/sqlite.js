@@ -1,10 +1,7 @@
 // RUN: limo --timeout-ms 10000 %s
-// STDOUT: first write:
-// STDOUT: 1 | Hello from limo
-// STDOUT: reopen in a new worker:
-// STDOUT: 1 | Hello from limo
-// STDOUT: 2 | Hello from limo
 // STDOUT: sqlite: done
+
+import { assert } from "./fixtures/assert.mjs";
 
 function query() {
   return new Promise((resolve, reject) => {
@@ -24,16 +21,18 @@ function query() {
 const keepAlive = setInterval(() => {}, 100);
 try {
   const first = await query();
-  console.log("first write:");
-  for (const row of first) console.log(row);
+  assert(
+    first.length === 1 && first[0] === "1 | Hello from limo",
+    `Unexpected first query: ${JSON.stringify(first)}`,
+  );
 
   // A fresh Worker creates another WASM instance and reopens the OPFS database.
   const second = await query();
-  console.log("reopen in a new worker:");
-  for (const row of second) console.log(row);
+  assert(
+    second.length === 2 && second[0] === first[0] && second[1] === "2 | Hello from limo",
+    `Unexpected rows after reopening: ${JSON.stringify(second)}`,
+  );
   console.log("sqlite: done");
-} catch (error) {
-  console.error(String(error));
 } finally {
   clearInterval(keepAlive);
 }

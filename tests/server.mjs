@@ -1,30 +1,25 @@
 // RUN: limo --timeout-ms 5000 %s
-// STDOUT: entry MIME: text/javascript
-// STDOUT: entry cache: no-store
-// STDOUT: relative fetch: local fixture
-// STDOUT: resource cache: no-store
-// STDOUT: last-modified: true
-// STDOUT: conditional status: 200
-// STDOUT: conditional body: local fixture
 // STDOUT: server: done
 //
 // RUN: limo --timeout-ms 5000 --input-type module tests/fixtures/entry-source
-// STDOUT: extensionless MIME: text/javascript
 // STDOUT: extensionless module: done
 
+import { assert } from "./fixtures/assert.mjs";
+
 const entry = await fetch(import.meta.url);
-console.log("entry MIME:", entry.headers.get("content-type"));
-console.log("entry cache:", entry.headers.get("cache-control"));
+assert(entry.headers.get("content-type") === "text/javascript", "Incorrect entry MIME type");
+assert(entry.headers.get("cache-control") === "no-store", "Entry should disable caching");
 
 const resource = new URL("./fixtures/server-data.json", import.meta.url);
 const response = await fetch(resource);
-console.log("relative fetch:", (await response.json()).message);
-console.log("resource cache:", response.headers.get("cache-control"));
-console.log("last-modified:", response.headers.has("last-modified"));
+assert((await response.json()).message === "local fixture", "Incorrect relative resource");
+assert(response.headers.get("cache-control") === "no-store", "Resource should disable caching");
+const lastModified = response.headers.get("last-modified");
+assert(lastModified !== null, "Missing Last-Modified header");
 
 const conditional = await fetch(resource, {
-  headers: { "If-Modified-Since": response.headers.get("last-modified") },
+  headers: { "If-Modified-Since": lastModified },
 });
-console.log("conditional status:", conditional.status);
-console.log("conditional body:", (await conditional.json()).message);
+assert(conditional.status === 200, `Conditional request returned ${conditional.status}`);
+assert((await conditional.json()).message === "local fixture", "Incorrect conditional response");
 console.log("server: done");

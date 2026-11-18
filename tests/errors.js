@@ -1,25 +1,31 @@
 // RUN: limo --timeout-ms 5000 -e 'console.log("script: before"); setTimeout(() => console.log("script: after"), 1000); throw "script failure";'
+// EXIT: fail
 // STDOUT: script: before
 // STDERR: Uncaught script failure
 //
 // RUN: limo --timeout-ms 5000 tests/fixtures/error-timer.js
+// EXIT: fail
 // STDOUT: timer: before
 // STDERR: Error: timer failure
 // STDERR:     at fail (timer-error.js:2:9)
 //
 // RUN: limo --timeout-ms 5000 -e 'console.log("promise: before"); setTimeout(() => console.log("promise: after"), 1000); Promise.reject("promise failure");'
+// EXIT: fail
 // STDOUT: promise: before
 // STDERR: Uncaught (in promise) promise failure
 //
 // RUN: limo --timeout-ms 5000 --input-type module -e 'console.log("module: before"); setTimeout(() => console.log("module: after"), 1000); await Promise.reject("module failure");'
+// EXIT: fail
 // STDOUT: module: before
 // STDERR: Uncaught module failure
 //
 // RUN: limo --timeout-ms 5000 -e 'console.log("stack: before"); const error = new Error("stack unavailable"); error.stack = undefined; throw error;'
+// EXIT: fail
 // STDOUT: stack: before
 // STDERR: Uncaught Error: stack unavailable
 //
 // RUN: limo --timeout-ms 5000 -e 'console.log("worker: before"); new Worker("./tests/fixtures/worker-error.js");'
+// EXIT: fail
 // STDOUT: worker: before
 // STDERR: Error: worker failure
 // STDERR:     at fail (worker-error.js:2:9)

@@ -1,12 +1,21 @@
 # runtest
 
-Build limo in release mode, then run JavaScript tests concurrently:
+Build Limo in release mode and run the JavaScript tests concurrently.
 
 ```sh
 cargo runtest
 ```
 
-Files directly inside the repository's `tests/` directory are scanned for `RUN` directives. Subdirectories can hold fixtures and are not scanned. Files without `RUN` directives are skipped.
+Each `.js` or `.mjs` file directly inside `tests/` runs once as `limo --timeout-ms 5000 <file>` by default. Put shared helpers and fixtures in a subdirectory. A successful test exits with code zero. For example, a module can use the assertion helper to throw on failure.
+
+```js
+import { assert } from "./fixtures/assert.mjs";
+import { message } from "./fixtures/message.mjs";
+
+assert(message === "hello from module", `Unexpected export: ${message}`);
+```
+
+Use `// RUN:` for custom arguments or multiple commands. Each command runs from the repository root in the order it appears in the file. The explicit commands replace the default run. `limo` resolves to the release binary and `%s` expands to the file's absolute path. The runner splits quoted arguments and launches the executable directly. Shell operators such as `|` and `>` are passed as arguments.
 
 ```js
 // RUN: limo %s
@@ -21,12 +30,12 @@ console.log("world");
 
 ```js
 // RUN: limo -e 'throw "failure"'
+// EXIT: fail
 // STDERR: Uncaught failure
 ```
 
-- `limo` resolves to the release binary built by runtest; `%s` expands to the current file's absolute path.
-- Commands run from the repository root. Quoted arguments are supported; shell pipelines and redirections are not.
-- Consecutive `STDOUT` and `STDERR` lines immediately after `RUN` specify exact output for each stream, including a newline for each line. One optional space after the directive is removed; all other whitespace is preserved. CRLF is normalized to LF.
-- Streams without an expectation are not checked. The tested command's exit status is always ignored. Build, parse, and process launch errors fail the run.
-- Files run concurrently. Multiple `RUN` commands in the same file run sequentially.
-- runtest exits unsuccessfully if any test fails, reporting the command and expected/actual output with stderr for output mismatches.
+Group expectations on consecutive lines immediately after their `RUN`.
+
+- `EXIT: ok` is the default. `EXIT: fail` expects a nonzero exit code. A launch error or termination by a signal fails the test. An unexpected exit reports both stdout and stderr.
+- `STDOUT:` and `STDERR:` check the declared streams exactly, including a newline for each line. One optional space after the directive is removed and CRLF is normalized to LF.
+- For asynchronous tests, an expected final output line can verify that the last assertion ran. A pending top-level `await` alone allows Limo to exit when the page becomes idle.
