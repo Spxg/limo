@@ -16,9 +16,8 @@ use oxc_allocator::Allocator;
 use oxc_parser::Parser as OxcParser;
 use oxc_span::SourceType;
 use tokio::runtime::Builder;
-use url::Url;
 
-use crate::server::{LocalServer, script_router, source_router};
+use crate::server::LocalServer;
 
 #[derive(Clone, Copy, ValueEnum)]
 enum InputType {
@@ -122,24 +121,16 @@ async fn run(cli: Cli) -> Result<()> {
         },
     };
 
-    let (app, name) = if let Some(source) = source {
-        let name = "__limo_input__.js";
-        (source_router(source, name, input_type), name)
+    let port = cli.port.unwrap_or(0);
+    let server = if let Some(source) = source {
+        LocalServer::serve_source(source, input_type, port).await?
     } else {
         let path = cli
             .file
             .as_deref()
             .context("missing JavaScript entry file")?;
-        let name = path
-            .file_name()
-            .and_then(|name| name.to_str())
-            .context("JavaScript filename is not valid UTF-8")?;
-        (script_router(path, input_type)?, name)
+        LocalServer::serve_file(path, input_type, port).await?
     };
-
-    let server = LocalServer::start(app, cli.port.unwrap_or(0)).await?;
-    let mut entry_url = Url::parse(server.base_url())?;
-    entry_url.path_segments_mut().unwrap().push(name);
 
     let mut config = BrowserConfig::default();
     config.set_profile_dir(cli.profile_dir);
@@ -149,13 +140,13 @@ async fn run(cli: Cli) -> Result<()> {
     let (output_tx, output_rx) = moli_core::renderer_output_transport_channel();
     browser.set_renderer_output_transport_sender(output_tx);
 
-    let mut output_task = tokio::spawn(output::forward(output_rx, entry_url.into()));
+    let mut output_task = tokio::spawn(output::forward(output_rx, server.entry_url.clone()));
 
     let timeout = Duration::from_millis(cli.timeout_ms.unwrap_or(600_000));
     let execution = tokio::select! {
         result = tokio::time::timeout(
             timeout,
-            browser.fetch_with_wait_until(server.base_url(), RenderedDomWaitUntil::Idle, timeout),
+            browser.fetch_with_wait_until(&server.page_url, RenderedDomWaitUntil::Idle, timeout),
         ) => {
             result
                 .context("JavaScript execution timed out")
