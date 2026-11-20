@@ -53,7 +53,7 @@ console.log(repo.description);`,
     output: "Spxg/limo\nRun JavaScript with browser Web APIs",
   },
   cors: {
-    title: "Fetch without CORS.",
+    title: "Fetch with CORS checks disabled.",
     description: "Disable CORS checks to read a cross-origin API response.",
     files: [{
       name: "fetch.mjs",
