@@ -29,6 +29,7 @@ An explicit `--input-type script` or `--input-type module` takes precedence over
 | File | Description |
 | --- | --- |
 | [dom.js](dom.js) | DOM manipulation and events |
+| [wasm-dom/src/lib.rs](wasm-dom/src/lib.rs) | Modify the DOM from a Rust start function (build steps below) |
 | [async.js](async.js) | Timers and microtasks |
 | [error.js](error.js) | An uncaught timer exception with a stack trace and exit code `1` |
 | [fetch.mjs](fetch.mjs) | Cross-origin GitHub and Bilibili API requests |
@@ -37,6 +38,18 @@ An explicit `--input-type script` or `--input-type module` takes precedence over
 | [opfs-sah/main.js](opfs-sah/main.js) | Read and write OPFS through a sync access handle in a Worker |
 | [sqlite/main.js](sqlite/main.js) | Persist SQLite data through the SAH VFS and query rows (build steps below) |
 | [idb.mjs](idb.mjs) | IndexedDB reads and writes |
+
+## Wasm DOM
+
+When `init()` runs, the [Rust start function](wasm-dom/src/lib.rs) appends a paragraph, reads its text from the DOM, and prints it with `console.log`.
+
+```sh
+cd examples/wasm-dom
+wasm-pack build --target web --out-name dom
+limo -e 'import init from "./pkg/dom.js"; await init()'
+```
+
+The output is `Hello from Rust via Wasm!`.
 
 ## Persistent storage
 
@@ -53,20 +66,21 @@ Each example increments its own persisted counter on every run.
 
 The [SQLite example](sqlite/src/lib.rs) uses [sqlite-wasm-rs](https://github.com/Spxg/sqlite-wasm-rs) and `sqlite-wasm-vfs` with its `sahpool` feature. A module Worker loads the generated WebAssembly, opens `limo.db` in OPFS, inserts a row into `visits`, and queries all rows. It closes the database and releases the sync access handles before returning the result.
 
-Build the example from the repository root. A C compiler with WebAssembly support, such as Clang, is required:
+A C compiler with WebAssembly support, such as Clang, is required.
 
 ```sh
+cd examples/sqlite
 rustup target add wasm32-unknown-unknown
 cargo install wasm-bindgen-cli --version 0.2.130 --locked
-cargo build --locked --manifest-path examples/sqlite/Cargo.toml --target wasm32-unknown-unknown --release
-wasm-bindgen examples/sqlite/target/wasm32-unknown-unknown/release/limo_sqlite_example.wasm --target web --out-dir examples/sqlite/pkg
+cargo build --locked --target wasm32-unknown-unknown --release
+wasm-bindgen target/wasm32-unknown-unknown/release/limo_sqlite_example.wasm --target web --out-dir pkg
 ```
 
-Run it twice with the same port and profile directory to see the earlier rows persist:
+Run it twice from `examples/sqlite` with the same port and profile directory to see the earlier rows persist.
 
 ```sh
-limo --port 3000 --profile-dir /tmp/limo-profile examples/sqlite/main.js
-limo --port 3000 --profile-dir /tmp/limo-profile examples/sqlite/main.js
+limo --port 3000 --profile-dir /tmp/limo-profile main.js
+limo --port 3000 --profile-dir /tmp/limo-profile main.js
 ```
 
 Each run appends one row and prints the table. The database lives in the profile's OPFS storage. Generated build files are ignored by Git.
