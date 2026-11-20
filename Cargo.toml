@@ -7,7 +7,7 @@ edition = "2024"
 anyhow = { version = "1.0.100", default-features = false, features = ["std"] }
 axum = { version = "0.8.6", default-features = false, features = ["http1", "tokio"] }
 clap = { version = "4.5.39", default-features = false, features = ["std", "derive", "help", "usage", "error-context"] }
-moli-core = { git = "https://github.com/Spxg/moli.git", rev = "dc2f0caf825d17120c86d9de91c426299fe8d98e", default-features = false }
+moli-core = { git = "https://github.com/lexmount/moli.git", rev = "d5e1ced4bee5d3b59bd88cc6f279bf63a6898127", default-features = false }
 oxc_allocator = { version = "0.127.0", default-features = false }
 oxc_parser = { version = "0.127.0", default-features = false }
 oxc_span = { version = "0.127.0", default-features = false }
@@ -46,8 +46,8 @@ xml5ever = { git = "https://github.com/lexmount/html5ever", rev = "4574311c63e79
 curl = { git = "https://github.com/lexmount/curl-rust", rev = "0392e12475d8d1160d4cae07c172cac02797cc25" }
 curl-sys = { git = "https://github.com/lexmount/curl-rust", rev = "0392e12475d8d1160d4cae07c172cac02797cc25" }
 cookie = { git = "https://github.com/ldm0/cookie-rs", branch = "priority" }
-v8 = { git = "https://github.com/Spxg/moli.git", rev = "dc2f0caf825d17120c86d9de91c426299fe8d98e" }
-deno_v8 = { git = "https://github.com/Spxg/moli.git", rev = "dc2f0caf825d17120c86d9de91c426299fe8d98e" }
+v8 = { git = "https://github.com/lexmount/moli.git", rev = "d5e1ced4bee5d3b59bd88cc6f279bf63a6898127" }
+deno_v8 = { git = "https://github.com/lexmount/moli.git", rev = "d5e1ced4bee5d3b59bd88cc6f279bf63a6898127" }
 selectors = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
 servo_arc = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }
 stylo = { git = "https://github.com/lexmount/stylo", rev = "5e853c2255715a825e3f9ea043d3998a55377e77" }

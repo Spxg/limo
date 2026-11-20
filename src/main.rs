@@ -140,7 +140,10 @@ async fn run(cli: Cli) -> Result<()> {
     let (output_tx, output_rx) = moli_core::renderer_output_transport_channel();
     browser.set_renderer_output_transport_sender(output_tx);
 
-    let mut output_task = tokio::spawn(output::forward(output_rx, server.entry_url.clone()));
+    let mut diagnostics = browser
+        .subscribe_diagnostics()
+        .context("failed to subscribe to moli diagnostics")?;
+    let mut output_task = tokio::spawn(output::forward(output_rx));
 
     let timeout = Duration::from_millis(cli.timeout_ms.unwrap_or(600_000));
     let execution = tokio::select! {
@@ -153,6 +156,7 @@ async fn run(cli: Cli) -> Result<()> {
                 .and_then(|result| result.context("JavaScript execution failed"))
                 .map(|_| ())
         }
+        result = output::forward_diagnostics(&mut diagnostics, &server.entry_url) => result,
         result = &mut output_task => return result.context("output forwarding task failed")?,
     };
 
@@ -162,7 +166,8 @@ async fn run(cli: Cli) -> Result<()> {
         .await
         .context("output forwarding task failed")??;
 
-    execution
+    execution?;
+    output::drain_diagnostics(&mut diagnostics, &server.entry_url)
 }
 
 fn detect_input_type(source: &str) -> InputType {
