@@ -58,6 +58,7 @@
               <button class="example-tab" id="tab-fetch" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="fetch">Fetch</button>
               <button class="example-tab" id="tab-cors" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="cors">Fetch without CORS</button>
               <button class="example-tab" id="tab-workers" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="workers">Worker</button>
+              <button class="example-tab" id="tab-error" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="error">Throw</button>
               <button class="example-tab" id="tab-indexeddb" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="indexeddb">IndexedDB</button>
               <button class="example-tab" id="tab-opfs" type="button" role="tab" aria-controls="example-panel" aria-selected="false" tabindex="-1" data-example="opfs">OPFS SAH</button>
             </div>
@@ -77,7 +78,7 @@ console.log(document.querySelector("button").outerHTML);</code></pre>
               <div class="code-footer"><span id="code-language">JavaScript</span><button class="copy-button" id="copy-code" type="button" aria-label="Copy dom.js code"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span>Copy to clipboard</span></button></div>
               <div class="terminal">
                 <div class="terminal-command"><span class="prompt" aria-hidden="true">$</span><code id="run-command" tabindex="0">limo dom.js</code><button class="copy-button copy-command" id="copy-command" type="button" aria-label="Copy run command"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span class="sr-only">Copy</span></button></div>
-                <div class="terminal-label">Example output</div>
+                <div class="terminal-label" id="terminal-label">Example output</div>
                 <pre class="terminal-output" id="terminal-output">Hello from the DOM!
 &lt;button&gt;Click me&lt;/button&gt;</pre>
               </div>

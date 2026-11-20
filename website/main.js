@@ -91,6 +91,22 @@ worker.postMessage([1, 2, 3, 4, 5]);`,
     command: "limo main.js",
     output: "sum: 15",
   },
+  error: {
+    title: "Report an uncaught exception.",
+    description: "See the source location and stack trace for an error thrown from a timer.",
+    files: [{
+      name: "error.js",
+      code: `function fail() {
+  throw new Error("Example error");
+}
+
+setTimeout(fail, 100);
+//# sourceURL=error.js`,
+    }],
+    command: "limo error.js",
+    outputLabel: "Standard error · Exit code 1",
+    output: "Uncaught Error: Example error\n    thrown at error.js:2:3\n    at fail",
+  },
   indexeddb: {
     title: "Store data with IndexedDB.",
     description: "Write and read data in a persistent browser database.",
@@ -213,6 +229,7 @@ function showExample(name) {
   document.getElementById("example-description").textContent = example.description;
   document.getElementById("run-command").textContent = example.command;
   document.getElementById("run-command").scrollLeft = 0;
+  document.getElementById("terminal-label").textContent = example.outputLabel ?? "Example output";
   document.getElementById("terminal-output").textContent = example.output;
   fileTabs.replaceChildren(...example.files.map((file, index) => {
     const button = document.createElement("button");
